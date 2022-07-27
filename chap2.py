@@ -2,7 +2,10 @@ import os
 import tarfile
 import urllib.request
 import pandas as pd
+import matplotlib.pyplot as plt
+from helpers import print_b
 
+NUMBER_OF_DASH = 30
 DOWNLOAD_ROOT = "https://raw.githubusercontent.com/ageron/handson-ml2/master/"
 HOUSING_PATH = os.path.join("datasets", "housing")
 HOUSING_URL = DOWNLOAD_ROOT + "datasets/housing/housing.tgz"
@@ -41,7 +44,18 @@ def load_housing_data(housing_path=HOUSING_PATH):
 
 
 def run():
-    print(10 * '-' + ' Chapitre 2 ' + 10 * '-')
+    print_b('Chapitre 2')
     fetch_housing_data()
     housing = load_housing_data()
-    print(housing.head())
+
+    # Description des colonnes
+    print_b('Description des colonnes')
+    print(housing.info())
+
+    # Description et statistiques des données
+    print_b('Description et statistiques des données')
+    print(housing.describe())
+
+    # Get graph of data
+    housing.hist(bins=50, figsize=(20, 15))
+    plt.show()
